@@ -96,6 +96,7 @@ import { ShowMoreLines } from './components/ShowMoreLines.js';
 import { PrivacyNotice } from './privacy/PrivacyNotice.js';
 import { useSettingsCommand } from './hooks/useSettingsCommand.js';
 import { SettingsDialog } from './components/SettingsDialog.js';
+import { ModelDialog } from './components/ModelDialog.js';
 import { setUpdateHandler } from '../utils/handleAutoUpdate.js';
 import { appEvents, AppEvent } from '../utils/events.js';
 import { isNarrowWidth } from './utils/isNarrowWidth.js';
@@ -251,6 +252,7 @@ const App = ({ config, settings, startupWarnings = [], version }: AppProps) => {
 
   const { isSettingsDialogOpen, openSettingsDialog, closeSettingsDialog } =
     useSettingsCommand();
+  const [isModelDialogOpen, setIsModelDialogOpen] = useState(false);
 
   const { isFolderTrustDialogOpen, handleFolderTrustSelect } = useFolderTrust(
     settings,
@@ -514,6 +516,7 @@ const App = ({ config, settings, startupWarnings = [], version }: AppProps) => {
     openThemeDialog,
     openAuthDialog,
     openEditorDialog,
+    () => setIsModelDialogOpen(true),
     toggleCorgiMode,
     setQuittingMessages,
     openPrivacyNotice,
@@ -994,6 +997,22 @@ const App = ({ config, settings, startupWarnings = [], version }: AppProps) => {
                     : undefined
                 }
                 terminalWidth={mainAreaWidth}
+              />
+            </Box>
+          ) : isModelDialogOpen ? (
+            <Box flexDirection="column">
+              <ModelDialog
+                settings={settings}
+                currentModel={currentModel}
+                onSelect={(modelName: string | undefined, scope: SettingScope) => {
+                  if (modelName) {
+                    settings.setValue(scope, 'model', modelName);
+                    config.setModel(modelName);
+                    setCurrentModel(modelName);
+                  }
+                  setIsModelDialogOpen(false);
+                }}
+                onCancel={() => setIsModelDialogOpen(false)}
               />
             </Box>
           ) : isSettingsDialogOpen ? (

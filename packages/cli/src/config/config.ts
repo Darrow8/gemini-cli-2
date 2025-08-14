@@ -11,6 +11,7 @@ import yargs from 'yargs/yargs';
 import { hideBin } from 'yargs/helpers';
 import process from 'node:process';
 import { mcpCommand } from '../commands/mcp.js';
+import { modelCommand } from '../commands/model.js';
 import {
   Config,
   loadServerHierarchicalMemory,
@@ -236,8 +237,9 @@ export async function parseArguments(): Promise<CliArgs> {
           return true;
         }),
     )
-    // Register MCP subcommands
+    // Register subcommands
     .command(mcpCommand)
+    .command(modelCommand)
     .version(await getCliVersion()) // This will enable the --version flag based on package.json
     .alias('v', 'version')
     .help()
@@ -248,9 +250,9 @@ export async function parseArguments(): Promise<CliArgs> {
   yargsInstance.wrap(yargsInstance.terminalWidth());
   const result = await yargsInstance.parse();
 
-  // Handle case where MCP subcommands are executed - they should exit the process
+  // Handle case where subcommands are executed - they should exit the process
   // and not return to main CLI logic
-  if (result._.length > 0 && result._[0] === 'mcp') {
+  if (result._.length > 0 && (result._[0] === 'mcp' || result._[0] === 'model')) {
     // MCP commands handle their own execution and process exit
     process.exit(0);
   }
