@@ -92,9 +92,11 @@
     "yargs": "^17.7.2"
   },
   "dependencies": {
+    "@types/jsonwebtoken": "^9.0.10",
     "commander": "^14.0.0",
     "fs-extra": "^11.3.1",
     "inquirer": "^12.9.2",
+    "jsonwebtoken": "^9.0.2",
     "node-fetch": "^3.3.2",
     "octokit": "^5.0.3",
     "ora": "^8.2.0",

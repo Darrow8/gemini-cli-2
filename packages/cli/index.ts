@@ -6,6 +6,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import dotenv from 'dotenv';
+dotenv.config({ path: process.cwd() + '/.env', quiet: true });
+
 import './src/gemini.js';
 import { main } from './src/gemini.js';
 
