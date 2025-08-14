@@ -59,6 +59,7 @@
     "LICENSE"
   ],
   "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
     "@types/marked": "^5.0.2",
     "@types/micromatch": "^4.0.9",
     "@types/mime-types": "^3.0.1",
@@ -91,6 +92,12 @@
     "yargs": "^17.7.2"
   },
   "dependencies": {
-    "node-fetch": "^3.3.2"
+    "commander": "^14.0.0",
+    "fs-extra": "^11.3.1",
+    "inquirer": "^12.9.2",
+    "node-fetch": "^3.3.2",
+    "octokit": "^5.0.3",
+    "ora": "^8.2.0",
+    "simple-git": "^3.28.0"
   }
 }
